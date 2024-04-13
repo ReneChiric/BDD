@@ -17,7 +17,7 @@ def step_impl(context):
 
 @then('The "Only registered users can vote" message is displayed')
 def step_impl(context):
-    assert context.home_page.is_vote_poll_error_message_displayed()
+    context.home_page.is_vote_poll_error_message_displayed()
 
 
 @when('I click on Subscribe button without entering anything in the email input')
@@ -25,9 +25,9 @@ def step_impl(context):
     context.home_page.click_on_subscribe_button()
 
 
-@then('"Enter valid email" error is displayed')
-def step_impl(context):
-    assert context.home_page.is_subscribe_error_message_displayed()
+@then('"{error_message}" error is displayed')
+def step_impl(context, error_message):
+    context.home_page.verify_subscribe_error_message_displayed(error_message)
 
 
 

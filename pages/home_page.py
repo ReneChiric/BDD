@@ -10,6 +10,7 @@ class HomePage(BasePage):
     SUBSCRIBE_BUTTON = (By.ID, 'newsletter-subscribe-button')
     SUBSCRIBE_EMAIL_ERROR_MESSAGE = (By.CLASS_NAME, 'newsletter-subscribe-text')
     SELECT_VOTE_OPTION_1 = (By.ID, 'pollanswers-1')
+    SUBSCRIBE_ERROR = (By.ID, 'newsletter-result-block')
 
 
     def navigate_to_home_page(self):
@@ -34,7 +35,14 @@ class HomePage(BasePage):
         self.click(self.SELECT_VOTE_OPTION_1)
 
     def is_subscribe_error_message_displayed(self):
-        return self.is_element_displayed(self.SUBSCRIBE_EMAIL_ERROR_MESSAGE)
+        return self.is_element_displayed(self.SUBSCRIBE_ERROR)
 
     def get_subscribe_error_message_text(self):
-        return self.get_element_text(self.SUBSCRIBE_EMAIL_ERROR_MESSAGE)
+        return self.get_element_text(self.SUBSCRIBE_ERROR)
+
+    def verify_subscribe_error_message_displayed(self):
+        assert self.is_element_displayed(self.SUBSCRIBE_ERROR), "Mesajul de eroare nu este afisat"
+
+    def verify_subscribe_error_message(self, expected_error_message):
+        actual_error_message = self.get_subscribe_error_message_text()
+        assert actual_error_message == expected_error_message, f"Eroarea așteptată '{expected_error_message}' nu este egală cu eroarea actuală '{actual_error_message}'."

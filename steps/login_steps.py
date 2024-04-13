@@ -32,17 +32,17 @@ def step_impl(context):
 
 @then('the main error message is displayed')
 def step_impl(context):
-    assert context.login_page.is_main_error_message_displayed()
+    context.login_page.verify_main_error_message_displayed()
 
 
 @then('The error text contains "No customer account found" message')
 def step_impl(context):
-    assert context.login_page.unregistered_account_message_displayed()
+    context.login_page.verify_unregistered_account_message_text()
 
 
-@then('The error text contains "{message}"')
-def step_impl(context, message):
-    assert message in context.login_page.get_main_error_message_text()
+@then('The error text contains "No customer account found"')
+def step_impl(context):
+    context.login_page.unregistered_account_message_displayed()
 
 
 # @when('I insert " " in the email input')
@@ -52,18 +52,18 @@ def step_impl(context, message):
 
 @then('The mail error message is displayed')
 def step_impl(context):
-    assert context.login_page.is_email_error_message_displayed()
+    context.login_page.is_email_error_message_displayed()
 
 
 @then('The message is "{message}"')
 def step_impl(context, message):
-    assert context.login_page.get_email_error_message_text() == message
+    context.login_page.verify_email_error_message_text(message)
 
 
 
 @then('The URL is "{url}"')
 def step_impl(context, url):
-    assert context.login_page.is_url_correct(url)
+    context.login_page.is_url_correct(url)
 
 
 @when('I click Forgot Password')

@@ -51,3 +51,13 @@ class LoginPage(BasePage):
 
     def unregistered_account_message_displayed(self):
         return "No customer account found" in self.get_main_error_message_text()
+
+    def verify_main_error_message_displayed(self):
+        assert self.is_main_error_message_displayed(), "Mesajul de eroare principal nu este afișat."
+
+    def verify_unregistered_account_message_text(self):
+        assert "No customer account found" in self.get_main_error_message_text(), "Mesajul de eroare nu contine 'No customer account found'"
+
+    def verify_email_error_message_text(self, expected_message):
+        actual_message = self.get_email_error_message_text()
+        assert actual_message == expected_message, f"Mesajul de eroare obținut '{actual_message}' nu corespunde cu '{expected_message}'."
