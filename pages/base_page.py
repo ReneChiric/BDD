@@ -6,16 +6,13 @@ from selenium.webdriver.support.select import Select
 from browser import Browser
 
 
-
-
-
 class BasePage(Browser):
 
     base_Url = "https://demo.nopcommerce.com/"
     SEARCH_INPUT = (By.ID, "small-searchterms")
     SEARCH_BUTTON = (By.XPATH, "//button[text()='Search']")
     ADD_TO_WISHLIST = (By.CLASS_NAME, "button-2 add-to-wishlist-button")
-
+    ERROR_MSG_EMAIL = (By.ID, 'Email-error')
 
     def wait_for_element_to_be_present(self, element_locator, seconds_to_wait):
         wait = WebDriverWait(self.driver, seconds_to_wait)
@@ -56,6 +53,16 @@ class BasePage(Browser):
         select = Select(dropdown_element)
         select.select_by_visible_text(text)
 
+    @staticmethod
+    def verify_message_text(actual_message, expected_message):
+        assert actual_message == expected_message, \
+            f"Mesajul de eroare obținut '{actual_message}' nu corespunde cu '{expected_message}'."
 
+    def get_email_error_message_text(self):
+        return self.get_element_text(self.ERROR_MSG_EMAIL)
 
+    def verify_email_error_message_text(self, expected_message):
+        self.verify_message_text(self.get_email_error_message_text(), expected_message)
 
+    def is_url_correct(self, expected_url):
+        assert expected_url == self.driver.current_url

@@ -16,7 +16,7 @@ Feature: Test the functionality of the Login Page
     When I insert "2392094" in the password input
     When I Click login button
     Then the main error message is displayed
-    Then The error text contains "No customer account found"
+    Then The error text contains "No customer account found" message
 
 #scenariul nr.3
   Scenario: Check that "Please enter your email" message is displayed when the user enters empty email address

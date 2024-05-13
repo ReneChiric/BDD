@@ -1,5 +1,6 @@
 from behave import *
 
+
 @given('I am on the Login Page')
 def step_impl(context):
     context.login_page.navigate_to_login_page()
@@ -35,14 +36,9 @@ def step_impl(context):
     context.login_page.verify_main_error_message_displayed()
 
 
-@then('The error text contains "No customer account found" message')
-def step_impl(context):
-    context.login_page.verify_unregistered_account_message_text()
-
-
-@then('The error text contains "No customer account found"')
-def step_impl(context):
-    context.login_page.unregistered_account_message_displayed()
+@then('The error text contains "{expected_text}" message')
+def step_impl(context, expected_text):
+    context.login_page.verify_unregistered_account_message_text(expected_text)
 
 
 # @when('I insert " " in the email input')
@@ -59,8 +55,6 @@ def step_impl(context):
 def step_impl(context, message):
     context.login_page.verify_email_error_message_text(message)
 
-
-
 @then('The URL is "{url}"')
 def step_impl(context, url):
     context.login_page.is_url_correct(url)
@@ -69,8 +63,3 @@ def step_impl(context, url):
 @when('I click Forgot Password')
 def step_impl(context):
     context.login_page.click_forgot_password_link()
-
-
-
-
-

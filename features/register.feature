@@ -66,4 +66,3 @@ Feature: Check the functionality of the Register Page
 
 
 
-

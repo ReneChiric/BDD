@@ -13,7 +13,6 @@ class LoginPage(BasePage):
     PASS_INPUT = (By.CLASS_NAME, 'password')
     LOGIN_BUTTON = (By.CLASS_NAME, 'login-button')
     ERROR_MSG_MAIN = (By.CSS_SELECTOR, 'div.message-error')
-    ERROR_MSG_EMAIL = (By.ID, 'Email-error')
     FORGOT_PASSWORD_LINK = (By.XPATH, "//a[text()='Forgot password?']")
 
     def navigate_to_login_page(self):
@@ -40,24 +39,15 @@ class LoginPage(BasePage):
     def get_main_error_message_text(self):
         return self.get_element_text(self.ERROR_MSG_MAIN)
 
-    def get_email_error_message_text(self):
-        return self.get_element_text(self.ERROR_MSG_EMAIL)
-
     def set_unregistered_email(self):
         self.set_email("andsaj@host2.com")
 
     def set_wrong_password(self):
         self.set_password("2392094")
 
-    def unregistered_account_message_displayed(self):
-        return "No customer account found" in self.get_main_error_message_text()
-
     def verify_main_error_message_displayed(self):
         assert self.is_main_error_message_displayed(), "Mesajul de eroare principal nu este afișat."
 
-    def verify_unregistered_account_message_text(self):
-        assert "No customer account found" in self.get_main_error_message_text(), "Mesajul de eroare nu contine 'No customer account found'"
-
-    def verify_email_error_message_text(self, expected_message):
-        actual_message = self.get_email_error_message_text()
-        assert actual_message == expected_message, f"Mesajul de eroare obținut '{actual_message}' nu corespunde cu '{expected_message}'."
+    def verify_unregistered_account_message_text(self, expected_text):
+        assert expected_text in self.get_main_error_message_text(), \
+            f"Mesajul de eroare nu contine '{expected_text}'"

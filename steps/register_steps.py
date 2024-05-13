@@ -1,8 +1,10 @@
 from behave import *
 
+
 @given('I am on the Register Page')
 def step_impl(context):
     context.register_page.navigate_to_register_page()
+
 
 @when('I click on Register Button')
 def step_impl(context):
@@ -12,7 +14,6 @@ def step_impl(context):
 @then('First Name Error is displayed')
 def step_impl(context):
     context.register_page.verify_first_name_error_displayed()
-
 
 
 @then('Last Name Error is displayed')
